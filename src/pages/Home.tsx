@@ -378,10 +378,6 @@ export default function Home() {
             <Link to={ROUTE_PATHS.PROJECTS} className="text-sm text-muted-foreground hover:text-primary transition-colors">Proyectos</Link>
             <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contacto</a>
           </div>
-          <button className="group inline-flex items-center text-sm font-medium hover:text-primary transition-colors">
-            <Download className="mr-2 w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
-            Descargar CV (PDF)
-          </button>
         </div>
       </footer>
     </div>
