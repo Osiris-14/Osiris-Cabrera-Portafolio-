@@ -366,7 +366,7 @@ export default function Home() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start">
             <div className="text-xl font-bold text-foreground mb-2">
-              Alytinc<span className="text-primary">Systems</span>
+              Osiris Cabrera<span className="text-primary">Portafolio</span>
             </div>
             <p className="text-sm text-muted-foreground">
               © 2026 Todos los derechos reservados.
