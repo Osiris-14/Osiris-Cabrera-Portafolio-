@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Database, BarChart3, Cpu, Brain } from "lucide-react";
+import { Github, ExternalLink, Database, BarChart3 } from "lucide-react";
 import { Project } from "@/lib/index";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { ProjectModal } from "@/components/ProjectModal";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const categoryIcon = {
-    Análisis: <Database className="w-4 h-4" />,
-    "Machine Learning": <Cpu className="w-4 h-4" />,
-    Visualización: <BarChart3 className="w-4 h-4" />,
-    "IA Engineering": <Brain className="w-4 h-4" />,
-    "Data Engineering": <Brain className="w-4 h-4" />,
-    "BI & Analytics": <BarChart3 className="w-4 h-4" />,
+    "Data Engineering": <Database className="w-4 h-4" />,
+    "Data Engineering + Analytics": <BarChart3 className="w-4 h-4" />,
   };
 
   return (
@@ -46,7 +46,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             variant="secondary" 
             className="flex items-center gap-1.5 backdrop-blur-md bg-background/60 border-none px-3 py-1 text-xs font-medium"
           >
-            {categoryIcon[project.category]}
+            {categoryIcon[project.category as keyof typeof categoryIcon] ?? <Database className="w-4 h-4" />}
             {project.category}
           </Badge>
         </div>
@@ -93,23 +93,36 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </a>
             </Button>
           )}
-          {project.demoUrl && (
-            <Button 
-              variant="default" 
-              size="sm" 
-              asChild 
+          {project.caseStudy ? (
+            <>
+              <Button
+                variant="default"
+                size="sm"
+                className="h-9 px-3 gap-2 flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={() => setModalOpen(true)}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Case Study
+              </Button>
+              <ProjectModal
+                project={project}
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+              />
+            </>
+          ) : project.demoUrl ? (
+            <Button
+              variant="default"
+              size="sm"
+              asChild
               className="h-9 px-3 gap-2 flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              <a 
-                href={project.demoUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
+              <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4" />
                 Demo
               </a>
             </Button>
-          )}
+          ) : null}
         </div>
       </div>
     </motion.div>
