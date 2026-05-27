@@ -48,10 +48,10 @@ export function Layout({ children }: LayoutProps) {
   }, [location]);
 
   const navLinks = [
-    { name: "Inicio", path: ROUTE_PATHS.HOME, icon: Database },
-    { name: "Proyectos", path: ROUTE_PATHS.PROJECTS, icon: BarChart3 },
-    { name: "Sobre Mí", path: ROUTE_PATHS.ABOUT, icon: User },
-    { name: "Contacto", path: ROUTE_PATHS.CONTACT, icon: Mail },
+    { name: "Home", path: ROUTE_PATHS.HOME, icon: Database },
+    { name: "Projects", path: ROUTE_PATHS.PROJECTS, icon: BarChart3 },
+    { name: "About", path: ROUTE_PATHS.ABOUT, icon: User },
+    { name: "Contact", path: ROUTE_PATHS.CONTACT, icon: Mail },
   ];
 
   const socialLinks = [
@@ -191,8 +191,7 @@ export function Layout({ children }: LayoutProps) {
                 <span className="font-bold text-xl tracking-tight">Osiris Cabrera</span>
               </Link>
               <p className="text-muted-foreground text-sm max-w-sm mb-6">
-                Transformando datos complejos en decisiones inteligentes. Especializado en análisis estadístico, 
-                machine learning y visualización de datos de alto impacto.
+                Data Engineer specialized in building scalable ETL/ELT pipelines, data architecture, and analytics infrastructure that transforms raw data into business-ready insights.
               </p>
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
@@ -211,7 +210,7 @@ export function Layout({ children }: LayoutProps) {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-foreground uppercase tracking-wider text-xs">Navegación</h4>
+              <h4 className="font-semibold mb-4 text-foreground uppercase tracking-wider text-xs">Navigation</h4>
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.path}>
@@ -227,13 +226,13 @@ export function Layout({ children }: LayoutProps) {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-foreground uppercase tracking-wider text-xs">Contacto</h4>
+              <h4 className="font-semibold mb-4 text-foreground uppercase tracking-wider text-xs">Contact</h4>
               <ul className="space-y-2">
                 <li className="text-sm text-muted-foreground">osce1428@gmail.com</li>
                 <li className="text-sm text-muted-foreground">Santo Domingo / República Dominicana</li>
                 <li className="text-sm text-muted-foreground">
                   <Link to={ROUTE_PATHS.CONTACT} className="text-primary hover:underline">
-                    Disponible para proyectos
+                    Available for new roles
                   </Link>
                 </li>
               </ul>
@@ -242,10 +241,10 @@ export function Layout({ children }: LayoutProps) {
 
           <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-muted-foreground">
-              © 2026 Osiris Cabrera Portfolio. Todos los derechos reservados.
+              © 2026 Osiris Cabrera Portfolio. All rights reserved.
             </p>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
-              Diseñado con precisión para el mundo de los datos <Database size={12} className="text-primary" />
+              Engineered for the data world <Database size={12} className="text-primary" />
             </p>
           </div>
         </div>
