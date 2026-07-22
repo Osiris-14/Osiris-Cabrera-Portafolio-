@@ -198,11 +198,6 @@ export default function Projects() {
           </div>
         </div>
       </section>
-
-      {/* Footer-like small info */}
-      <div className="py-12 border-t border-border/50 text-center text-sm text-muted-foreground">
-        <p>© 2026 • Osiris Cabrera Portfolio</p>
-      </div>
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { Menu, X, Database, BarChart3, Mail, User } from "lucide-react";
+import { Menu, X, Database, BarChart3, Mail, User, Search } from "lucide-react";
 import { SiGithub, SiLinkedin} from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
-import { ROUTE_PATHS } from "@/lib/index";
+import { ROUTE_PATHS, SOCIAL_LINKS } from "@/lib/index";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { CommandPalette, OPEN_COMMAND_PALETTE_EVENT } from "@/components/CommandPalette";
 import logo from "@/assets/Logo.png";
 
 interface LayoutProps {
@@ -55,8 +56,8 @@ export function Layout({ children }: LayoutProps) {
   ];
 
   const socialLinks = [
-    { name: "GitHub", icon: SiGithub, url: "https://github.com" },
-    { name: "LinkedIn", icon: SiLinkedin, url: "https://www.linkedin.com/in/osiris-yordalis-cabrera-lara-749b6a241/" }
+    { name: "GitHub", icon: SiGithub, url: SOCIAL_LINKS.github },
+    { name: "LinkedIn", icon: SiLinkedin, url: SOCIAL_LINKS.linkedin }
   ];
 
   return (
@@ -107,8 +108,19 @@ export function Layout({ children }: LayoutProps) {
                 {link.name}
               </NavLink>
             ))}
-            <Button variant="default" size="sm" asChild className="ml-4">
-              <Link to={ROUTE_PATHS.CONTACT}>Trabajemos</Link>
+            <button
+              onClick={() => window.dispatchEvent(new Event(OPEN_COMMAND_PALETTE_EVENT))}
+              className="ml-4 flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground bg-muted/60 hover:bg-muted border border-border rounded-lg transition-colors"
+              aria-label="Open command palette"
+            >
+              <Search size={14} />
+              <span className="hidden lg:inline">Search</span>
+              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono bg-background border border-border rounded">
+                Ctrl K
+              </kbd>
+            </button>
+            <Button variant="default" size="sm" asChild className="ml-2">
+              <Link to={ROUTE_PATHS.CONTACT}>Let's Work</Link>
             </Button>
           </nav>
 
@@ -166,15 +178,18 @@ export function Layout({ children }: LayoutProps) {
                 ))}
               </div>
               <Button className="w-full text-lg py-6" asChild>
-                <Link to={ROUTE_PATHS.CONTACT}>Contáctame Ahora</Link>
+                <Link to={ROUTE_PATHS.CONTACT}>Contact Me</Link>
               </Button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Global Command Palette (Ctrl+K) */}
+      <CommandPalette />
+
       {/* Main Content Area */}
-      <main 
+      <main
         className="flex-grow"
         style={{ paddingTop: `${headerHeight}px` }}
       >

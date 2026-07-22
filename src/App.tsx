@@ -7,21 +7,22 @@ import { ROUTE_PATHS } from "@/lib/index";
 import { Layout } from "@/components/Layout";
 import Home from "@/pages/Home";
 import Projects from "@/pages/Projects";
+import ProjectDetail from "@/pages/ProjectDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutos
+      staleTime: 1000 * 60 * 5, // 5 minutes
       retry: 1,
     },
   },
 });
 
 /**
- * Componente raíz de la aplicación.
- * Configura el enrutamiento profesional y los proveedores globales del sistema.
+ * Root application component.
+ * Configures routing and global providers.
  */
 export default function App() {
   return (
@@ -30,31 +31,37 @@ export default function App() {
         <BrowserRouter>
           <Layout>
             <Routes>
-              {/* Ruta Principal: Dashboard/Landing de Portfolio */}
+              {/* Main Route: Portfolio Landing */}
               <Route 
                 path={ROUTE_PATHS.HOME} 
                 element={<Home />} 
               />
               
-              {/* Galería Completa de Proyectos de Data Science */}
+              {/* Full Data Projects Gallery */}
               <Route 
                 path={ROUTE_PATHS.PROJECTS} 
                 element={<Projects />} 
               />
+
+              {/* Project Case Study Detail */}
+              <Route
+                path={ROUTE_PATHS.PROJECT_DETAIL}
+                element={<ProjectDetail />}
+              />
               
-              {/* Detalle Profesional y Experiencia */}
+              {/* Professional Background and Experience */}
               <Route 
                 path={ROUTE_PATHS.ABOUT} 
                 element={<About />} 
               />
               
-              {/* Canal de Comunicación y Lead Generation */}
+              {/* Communication Channel and Lead Generation */}
               <Route 
                 path={ROUTE_PATHS.CONTACT} 
                 element={<Contact />} 
               />
 
-              {/* Manejo de Rutas No Encontradas - Redirección a Home o 404 Custom */}
+              {/* Fallback: Unknown Routes Redirect to Home */}
               <Route 
                 path="*" 
                 element={<Home />} 
@@ -63,7 +70,7 @@ export default function App() {
           </Layout>
         </BrowserRouter>
         
-        {/* Notificaciones del Sistema */}
+        {/* System Notifications */}
         <Toaster />
         <Sonner position="top-right" expand={false} richColors />
       </TooltipProvider>

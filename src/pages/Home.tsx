@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -9,19 +8,27 @@ import {
   Mail,
   Linkedin,
   Github,
-  ChevronRight,
-  Download
+  ChevronRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   ROUTE_PATHS,
+  SOCIAL_LINKS,
   skills,
   projects,
   Project
 } from "@/lib/index";
 import { ProjectCard } from "@/components/ProjectCard";
-import { IMAGES } from "@/assets/images";
-import aboutVideo from "../assets/about.mp4/Video.mp4";
+import { DataNetworkBackground } from "@/components/DataNetworkBackground";
+import { HeroTerminal } from "@/components/HeroTerminal";
+import { SkillBar } from "@/components/SkillBar";
+
+const skillCategories = [
+  { category: "Languages", icon: Code2, accent: false },
+  { category: "Pipelines & Processing", icon: BrainCircuit, accent: true },
+  { category: "Visualization", icon: BarChart3, accent: false },
+  { category: "Cloud & Infrastructure", icon: Database, accent: true },
+] as const;
 
 const springTransition = {
   type: "spring",
@@ -50,54 +57,63 @@ export default function Home() {
       {/* Hero Section */}
       <section
         id="hero"
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-24"
+        className="relative min-h-[90vh] flex items-center overflow-hidden py-24"
       >
+        {/* Animated data network background */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={IMAGES.TECH_BACKGROUND_1}
-            alt="Background"
-            className="w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/70" />
+          <DataNetworkBackground />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background pointer-events-none" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...springTransition, delay: 0.2 }}
-          >
-            <motion.span
-              className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider uppercase bg-accent/20 text-accent-foreground rounded-full border border-accent/30"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
+        <div className="container mx-auto px-4 relative z-10 pointer-events-none">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              className="text-center lg:text-left pointer-events-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...springTransition, delay: 0.2 }}
             >
-              Data Engineering • Analytics • AI Integration
-            </motion.span>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-foreground">
-              Building the Pipelines That Power <span className="text-primary">Data-Driven Decisions</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto">
-              Data Engineer specialized in building scalable ETL/ELT pipelines, data architecture, and analytics infrastructure that transforms raw data into business intelligence.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to={ROUTE_PATHS.PROJECTS}
-                className="group inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-primary-foreground bg-primary rounded-xl shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-[1.02]"
+              <motion.span
+                className="inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wider uppercase bg-accent/20 text-accent-foreground rounded-full border border-accent/30"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
               >
-                View Projects
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-foreground bg-secondary/80 backdrop-blur border border-border rounded-xl hover:bg-secondary transition-all duration-300"
-              >
-                Contact
-              </a>
-            </div>
-          </motion.div>
+                Data Engineering • Analytics • AI Integration
+              </motion.span>
+              <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-6 text-foreground">
+                Building the Pipelines That Power <span className="text-primary">Data-Driven Decisions</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Data Engineer specialized in building scalable ETL/ELT pipelines, data architecture, and analytics infrastructure that transforms raw data into business intelligence.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <Link
+                  to={ROUTE_PATHS.PROJECTS}
+                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-primary-foreground bg-primary rounded-xl shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:scale-[1.02]"
+                >
+                  View Projects
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-foreground bg-secondary/80 backdrop-blur border border-border rounded-xl hover:bg-secondary transition-all duration-300"
+                >
+                  Contact
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Live pipeline terminal */}
+            <motion.div
+              className="pointer-events-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...springTransition, delay: 0.5 }}
+            >
+              <HeroTerminal />
+            </motion.div>
+          </div>
         </div>
 
         <motion.div
@@ -143,7 +159,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="relative aspect-video"
+              className="relative"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -152,10 +168,10 @@ export default function Home() {
               <div className="absolute inset-0 bg-primary/10 rounded-3xl -rotate-3" />
 
               <img
-              src="/Osiris.jpg"
-              alt="Osiris Cabrera"
-              className="relative z-10 w-full h-[800px] object-cover object-[center_45%] rounded-3xl shadow-2xl rotate-3 transition-transform hover:rotate-0 duration-500"
-            />
+                src="/Osiris.jpg"
+                alt="Osiris Cabrera"
+                className="relative z-10 w-full h-auto max-h-[420px] md:max-h-[560px] lg:max-h-[640px] object-cover object-[center_45%] rounded-3xl shadow-2xl rotate-3 transition-transform hover:rotate-0 duration-500"
+              />
             </motion.div>
           </div>
         </div>
@@ -181,65 +197,31 @@ export default function Home() {
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            <motion.div variants={fadeInUp} className="p-8 bg-card rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
-                <Code2 className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Languages</h3>
-              <ul className="space-y-3">
-                {skills.filter(s => s.category === "Lenguajes").map(skill => (
-                  <li key={skill.name} className="flex items-center justify-between">
-                    <span className="text-muted-foreground">{skill.name}</span>
-                    <span className="text-xs font-mono bg-secondary px-2 py-0.5 rounded">{skill.level}%</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="p-8 bg-card rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent-foreground mb-6">
-                <BrainCircuit className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Pipelines & Processing</h3>
-              <ul className="space-y-3">
-                {skills.filter(s => s.category === "ML/IA").map(skill => (
-                  <li key={skill.name} className="flex items-center justify-between">
-                    <span className="text-muted-foreground">{skill.name}</span>
-                    <span className="text-xs font-mono bg-secondary px-2 py-0.5 rounded">{skill.level}%</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="p-8 bg-card rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
-                <BarChart3 className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Visualization</h3>
-              <ul className="space-y-3">
-                {skills.filter(s => s.category === "Visualización").map(skill => (
-                  <li key={skill.name} className="flex items-center justify-between">
-                    <span className="text-muted-foreground">{skill.name}</span>
-                    <span className="text-xs font-mono bg-secondary px-2 py-0.5 rounded">{skill.level}%</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="p-8 bg-card rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent-foreground mb-6">
-                <Database className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Cloud & Infrastructure</h3>
-              <ul className="space-y-3">
-                {skills.filter(s => s.category === "Cloud & Data").map(skill => (
-                  <li key={skill.name} className="flex items-center justify-between">
-                    <span className="text-muted-foreground">{skill.name}</span>
-                    <span className="text-xs font-mono bg-secondary px-2 py-0.5 rounded">{skill.level}%</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            {skillCategories.map(({ category, icon: Icon, accent }) => (
+              <motion.div
+                key={category}
+                variants={fadeInUp}
+                className="p-8 bg-card rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${
+                    accent
+                      ? "bg-accent/10 text-accent-foreground"
+                      : "bg-primary/10 text-primary"
+                  }`}
+                >
+                  <Icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-5">{category}</h3>
+                <ul className="space-y-4">
+                  {skills
+                    .filter((s) => s.category === category)
+                    .map((skill, i) => (
+                      <SkillBar key={skill.name} skill={skill} index={i} />
+                    ))}
+                </ul>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -306,13 +288,19 @@ export default function Home() {
                   </a>
                   <div className="flex gap-4">
                     <a
-                      href="#"
+                      href={SOCIAL_LINKS.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn profile"
                       className="flex items-center justify-center w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-colors border border-white/20"
                     >
                       <Linkedin className="w-6 h-6" />
                     </a>
                     <a
-                      href="#"
+                      href={SOCIAL_LINKS.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub profile"
                       className="flex items-center justify-center w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-colors border border-white/20"
                     >
                       <Github className="w-6 h-6" />
@@ -360,26 +348,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer Minimalist */}
-      <footer className="py-12 border-t border-border">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center md:items-start">
-            <div className="text-xl font-bold text-foreground mb-2">
-              Osiris Cabrera<span className="text-primary"> Portfolio</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              © 2026 All rights reserved.
-            </p>
-          </div>
-          <div className="flex items-center gap-8">
-            <a href="#hero" className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</a>
-            <a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</a>
-            <Link to={ROUTE_PATHS.PROJECTS} className="text-sm text-muted-foreground hover:text-primary transition-colors">Projects</Link>
-            <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

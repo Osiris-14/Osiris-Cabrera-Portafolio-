@@ -1,13 +1,24 @@
 export const ROUTE_PATHS = {
   HOME: "/",
-  PROJECTS: "/proyectos",
-  ABOUT: "/sobre-mi",
-  CONTACT: "/contacto",
+  PROJECTS: "/projects",
+  PROJECT_DETAIL: "/projects/:id",
+  ABOUT: "/about",
+  CONTACT: "/contact",
+};
+
+/** Builds the detail route for a project */
+export const projectDetailPath = (id: string) => `/projects/${id}`;
+
+/** Verified social profiles */
+export const SOCIAL_LINKS = {
+  github: "https://github.com/Osiris-14",
+  linkedin: "https://www.linkedin.com/in/osiris-yordalis-cabrera-lara-749b6a241/",
+  email: "osce1428@gmail.com",
 };
 
 export interface Skill {
   name: string;
-  category: "Lenguajes" | "Visualización" | "Cloud & Data" | "ML/IA";
+  category: "Languages" | "Visualization" | "Cloud & Infrastructure" | "Pipelines & Processing";
   level: number; // 0-100
 }
 
@@ -44,25 +55,25 @@ export interface Experience {
 }
 
 export const skills: Skill[] = [
-  { name: "Python", category: "Lenguajes", level: 90 },
-  { name: "SQL", category: "Lenguajes", level: 88 },
-  { name: "Bash / Shell", category: "Lenguajes", level: 70 },
+  { name: "Python", category: "Languages", level: 90 },
+  { name: "SQL", category: "Languages", level: 88 },
+  { name: "Bash / Shell", category: "Languages", level: 70 },
 
-  { name: "Apache Airflow", category: "ML/IA", level: 78 },
-  { name: "dbt (data build tool)", category: "ML/IA", level: 75 },
-  { name: "Apache Spark", category: "ML/IA", level: 70 },
-  { name: "Pandas / NumPy", category: "ML/IA", level: 90 },
+  { name: "Apache Airflow", category: "Pipelines & Processing", level: 78 },
+  { name: "dbt (data build tool)", category: "Pipelines & Processing", level: 75 },
+  { name: "Apache Spark", category: "Pipelines & Processing", level: 70 },
+  { name: "Pandas / NumPy", category: "Pipelines & Processing", level: 90 },
 
-  { name: "Power BI", category: "Visualización", level: 90 },
-  { name: "Looker Studio", category: "Visualización", level: 80 },
-  { name: "Tableau", category: "Visualización", level: 75 },
+  { name: "Power BI", category: "Visualization", level: 90 },
+  { name: "Looker Studio", category: "Visualization", level: 80 },
+  { name: "Tableau", category: "Visualization", level: 75 },
 
-  { name: "Supabase (PostgreSQL)", category: "Cloud & Data", level: 85 },
-  { name: "Google BigQuery", category: "Cloud & Data", level: 80 },
-  { name: "AWS S3 / Lambda", category: "Cloud & Data", level: 72 },
-  { name: "Docker", category: "Cloud & Data", level: 70 },
-  { name: "REST APIs & Webhooks", category: "Cloud & Data", level: 88 },
-  { name: "Git / GitHub", category: "Cloud & Data", level: 85 },
+  { name: "Supabase (PostgreSQL)", category: "Cloud & Infrastructure", level: 85 },
+  { name: "Google BigQuery", category: "Cloud & Infrastructure", level: 80 },
+  { name: "AWS S3 / Lambda", category: "Cloud & Infrastructure", level: 72 },
+  { name: "Docker", category: "Cloud & Infrastructure", level: 70 },
+  { name: "REST APIs & Webhooks", category: "Cloud & Infrastructure", level: 88 },
+  { name: "Git / GitHub", category: "Cloud & Infrastructure", level: 85 },
 ];
 
 export const projects: Project[] = [
@@ -207,7 +218,7 @@ def calculate_retention(df):
     description: "Power BI credit card analytics dashboard with segmentation by card tier (Blue/Silver/Gold/Platinum), spending type, and customer profile. Key KPIs: Revenue $55M, Transactions $656M, and CSS 3.19 across a 2023 portfolio.",
     image: "/Creditcard.jpeg",
     tags: ["Excel", "Power Query", "Power BI"],
-    demoUrl: "public/projects/CreditCard_Dashboard_Analisis.pdf",
+    demoUrl: "/projects/CreditCard_Dashboard_Analisis.pdf",
     category: "Data Engineering + Analytics",
     visible: false,
   },
@@ -308,8 +319,8 @@ export const experiences: Experience[] = [
   {
     id: "exp0",
     role: "Freelance Data Analyst & CRM Analyst",
-    company: "Workana & Proyectos Independientes",
-    period: "2024 - Presente",
+    company: "Workana & Independent Projects",
+    period: "2024 - Present",
     description: [
       "Freelance Data Analyst and CRM Analyst specialized in commercial data analysis, process automation, and business intelligence solutions.",
 
@@ -335,7 +346,7 @@ export const experiences: Experience[] = [
     id: "exp1",
     role: "Sales Process Analyst",
     company: "Cerveceria Nacional Dominicana (CND)",
-    period: "2026 - Presente",
+    period: "2026 - Present",
     description: [
       "As a Sales Process Analyst, I specialize in analyzing workflows and optimizing operational tasks, with a strong focus on automating reports and performance dashboards.",
       "Using Databricks, SQL Server, Power BI, Excel, and Python, I design scalable data solutions that streamline reporting processes and improve decision-making.",

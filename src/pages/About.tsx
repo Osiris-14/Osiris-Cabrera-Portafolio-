@@ -15,7 +15,6 @@ import { IMAGES } from "@/assets/images";
 import { experiences } from "@/lib/index.ts";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
 const springPresets = {
   gentle: { stiffness: 300, damping: 35 },

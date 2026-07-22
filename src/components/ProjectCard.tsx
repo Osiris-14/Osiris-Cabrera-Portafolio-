@@ -1,18 +1,15 @@
 import { motion } from "framer-motion";
 import { Github, ExternalLink, Database, BarChart3 } from "lucide-react";
-import { Project } from "@/lib/index";
+import { Link } from "react-router-dom";
+import { Project, projectDetailPath } from "@/lib/index";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { ProjectModal } from "@/components/ProjectModal";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const categoryIcon = {
     "Data Engineering": <Database className="w-4 h-4" />,
     "Data Engineering + Analytics": <BarChart3 className="w-4 h-4" />,
@@ -89,27 +86,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 rel="noopener noreferrer"
               >
                 <Github className="w-4 h-4" />
-                Código
+                Code
               </a>
             </Button>
           )}
           {project.caseStudy ? (
-            <>
-              <Button
-                variant="default"
-                size="sm"
-                className="h-9 px-3 gap-2 flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
-                onClick={() => setModalOpen(true)}
-              >
+            <Button
+              variant="default"
+              size="sm"
+              asChild
+              className="h-9 px-3 gap-2 flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              <Link to={projectDetailPath(project.id)}>
                 <ExternalLink className="w-4 h-4" />
                 Case Study
-              </Button>
-              <ProjectModal
-                project={project}
-                isOpen={modalOpen}
-                onClose={() => setModalOpen(false)}
-              />
-            </>
+              </Link>
+            </Button>
           ) : project.demoUrl ? (
             <Button
               variant="default"
